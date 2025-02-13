@@ -4,6 +4,8 @@ name: Build and test project
 
 on:
   push:
+    tags:
+      - '*'
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
@@ -13,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      # Required for docker push
+      packages: write
+      attestations: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
@@ -40,9 +46,37 @@ jobs:
           path: |
             build/test-results
             build/reports/tests
+      # NOTE: on PRs, build docker image locally to ensure docker build is not broken.
+      # On main branch, push "latest" tagged image.
+      # On tags
       - name: Build Docker image
+        if: github.event_name == 'pull_request'
         run: |
           ./gradlew -Pmaven_settings_location='undefined' dockerBuild
+      - name: Login to Docker registry
+        if: github.ref == 'refs/heads/main' || startsWith(github.event.ref, 'refs/tags/')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push latest Docker image
+        if: github.ref == 'refs/heads/main'
+        run: >
+          ./gradlew 
+          -Pmaven_settings_location='undefined'
+          -Pversion="latest"
+          -Pspring-boot.build-image.imageName="ghcr.io/${GITHUB_REPOSITORY@L}"
+          dockerPush
+      - name: Push tagged Docker image
+        if: startsWith(github.event.ref, 'refs/tags/')
+        run: >
+          ./gradlew 
+          -Pmaven_settings_location='undefined'
+          -Pversion="$GITHUB_REF_NAME"
+          -Pspring-boot.build-image.imageName="ghcr.io/${GITHUB_REPOSITORY@L}"
+          dockerPush
+
   dependency-submission:
     runs-on: ubuntu-latest
     permissions:
