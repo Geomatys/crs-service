@@ -41,12 +41,14 @@ dependencies {
     implementation("org.graalvm.js:js-scriptengine:24.1.1")
 
     // For GIGS tests
-    //implementation("org.iogp:gigs:1.0-SNAPSHOT")
+    implementation("org.iogp:gigs:1.0-SNAPSHOT")
 
     // For Swagger UI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     implementation("com.github.therapi:therapi-runtime-javadoc:0.15.0")
     annotationProcessor("com.github.therapi:therapi-runtime-javadoc-scribe:0.13.0")
+    testImplementation("org.apache.sis.core:sis-referencing:1.5.0-ALPHA-1");
+    testImplementation("org.iogp:gigs:1.0-SNAPSHOT");
 }
 
 tasks.withType<AsciidoctorTask> {
@@ -66,6 +68,22 @@ tasks.withType<BootBuildImage> {
     imageName = requireNotNull(project.properties["spring-boot.build-image.imageName"]).toString()
     createdDate = "now"
     docker { bindHostToBuilder = true }
+}
+
+// Unit tests exclude GIGS tests
+tasks.named<Test>("test") {
+    useJUnitPlatform {
+        excludeTags("gigs")
+    }
+}
+
+// GIGS tests
+tasks.register<Test>("gigs") {
+    description = "Runs GIGS tests."
+    group = "verification"
+    useJUnitPlatform() {
+        includeTags("gigs")
+    }
 }
 
 fun Project.getTaggedImageName() : String {

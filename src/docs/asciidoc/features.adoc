@@ -9,9 +9,10 @@ This project launches a web-service that serves Javascript code snippets to conv
 * The following list of projection methods are supported:
 ** Equidistant Cylindrical projection (EPSG:1028),
 ** Lambert Conic Conformal projection (EPSG:9801, 9802, 9803, 9826, 1051),
-** Mercator Cylindrical projection (EPSG:9804, 9805, 1026, 1024, 1044),
+** Mercator Cylindrical projection (EPSG:9804, 1026, 1024, 1044),
 ** Polar Stereographic projection (EPSG:9810, 9829, 9830),
 ** Transverse Mercator projection (EPSG:9807),
+** Transverse Mercator (South Oriented) (EPSG:9808)
 ** Geocentric translations (EPSG:1031),
 ** Position Vector transformation (EPSG:1033),
 ** Coordinate Frame rotation (EPSG:1032).

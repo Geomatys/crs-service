@@ -1,0 +1,41 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-size: 12pt;
+}
+
+body, a, a:visited {
+    color: #303030;
+}
+
+#content {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#content h1 {
+    font-size: 160%;
+    margin-bottom: 20px;
+}
+
+h1, h2, h3 {
+    white-space: nowrap;
+}
+
+h2 {
+    font-size: 120%;
+    margin-top: 40px;
+}
+
+#gigs-presentation {
+    margin-bottom: 50px;
+}
+
+ul li {
+    /*list-style: none;*/
+    margin-bottom: 10px;
+}

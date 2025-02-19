@@ -278,12 +278,12 @@ public class DefaultCrsOperationService implements CrsOperationService {
                 try {
                     code = exp.toECMAScript();
                 } catch (UnsupportedOperationException ex) {
-                    return "TODO";
+                    return "TODO " + step.getClass().getName();
                 }
 
                 return code;
             } else {
-                return "TODO";
+                return "TODO " + step.getClass().getName();
             }
         } else {
             final StringBuilder sb = new StringBuilder();
