@@ -54,7 +54,7 @@ public class CRSOperationController {
     @CrossOrigin
     @RequestMapping(path = "define", method = RequestMethod.GET)
     @Parameter(name = "source", example = "EPSG:3395")
-    @Parameter(name = "format", schema = @Schema(type = "string", allowableValues = {"application/json"}))
+    @Parameter(name = "format", schema = @Schema(type = "string", allowableValues = {"application/json", "application/wkt"}))
     public ResponseEntity<Resource> getCRS(
                                  @RequestParam String source,
                                  @RequestParam(required = false, defaultValue = "false") boolean longitudeFirst,

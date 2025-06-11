@@ -97,7 +97,10 @@ public class DefaultCrsOperationService implements CrsOperationService {
             );
 
         } else if (FORMAT_WKT.equals(format)) {
-            throw new UnsupportedOperationException("TODO");
+            return new SourceCode(
+                    MediaType.parseMediaType(FORMAT_WKT + "; charset=utf-8"),
+                    new ByteArrayResource(crs.toWKT().getBytes(StandardCharsets.UTF_8))
+            );
         } else {
             throw new IllegalArgumentException("Format not supported " + format);
         }
