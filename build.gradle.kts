@@ -50,9 +50,9 @@ dependencies {
     testImplementation("org.iogp:gigs:1.0-GEOMATYS-ALPHA-1")
 
     // For Swagger UI
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-    implementation("com.github.therapi:therapi-runtime-javadoc:0.15.0")
-    annotationProcessor("com.github.therapi:therapi-runtime-javadoc-scribe:0.13.0")
+    implementation(libs.springdoc.starter)
+    implementation(libs.therapi.runtime)
+    annotationProcessor(libs.therapi.processor)
 }
 
 tasks.withType<AsciidoctorTask> {
