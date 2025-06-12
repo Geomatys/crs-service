@@ -17,7 +17,7 @@ import org.opengis.util.FactoryException;
 
 /**
  *
- * @author jsorel
+ * @author Johann Sorel (Geomatys)
  */
 public class ClientTest extends AbstractIntegrationTest {
 
@@ -43,6 +43,41 @@ public class ClientTest extends AbstractIntegrationTest {
         testTransform(factory, "EPSG:4326", "EPSG:2154", new double[]{48, 2}, true, cartTolerance, geogTolerance);
         //Geocentric
         testTransform(factory, "EPSG:4326", "EPSG:4978", new double[]{48, 2}, true, cartTolerance, geogTolerance);
+        //Spherical to projection
+        final String mars1 =
+                "GEODCRS[\"Mars (2015) / Ocentric\",\n" +
+                "  DATUM[\"Mars (2015)\",\n" +
+                "    ELLIPSOID[\"Mars (2015)\", 3396190, 169.8944472236118,\n" +
+                "      LENGTHUNIT[\"metre\", 1, ID[\"EPSG\", 9001]]],\n" +
+                "    ANCHOR[\"Viking 1 lander : 47.95137 W\"]],\n" +
+                "    PRIMEM[\"Reference Meridian\", 0,\n" +
+                "      ANGLEUNIT[\"degree\", 0.0174532925199433, ID[\"EPSG\", 9122]]],\n" +
+                "  CS[spherical, 2],\n" +
+                "    AXIS[\"planetocentric latitude (U)\", north,\n" +
+                "      ANGLEUNIT[\"degree\", 0.0174532925199433]],\n" +
+                "    AXIS[\"planetocentric longitude (V)\", east,\n" +
+                "      ANGLEUNIT[\"degree\", 0.0174532925199433]],\n" +
+                "  ID[\"IAU\", 49902, 2015],\n" +
+                "  REMARK[\"Source of IAU Coordinate systems: doi:10.1007/s10569-017-9805-5\"]]";
+        final String mars2 =
+                "PROJCRS[\"Mars (2015) / Ocentric / Equirectangular, clon = 0\",\n" +
+                "  BASEGEODCRS[\"Mars (2015) / Ocentric\",\n" +
+                "    DATUM[\"Mars (2015)\",\n" +
+                "      ELLIPSOID[\"Mars (2015)\", 3396190, 169.8944472236118,\n" +
+                "        LENGTHUNIT[\"metre\", 1, ID[\"EPSG\", 9001]]],\n" +
+                "      ANCHOR[\"Viking 1 lander : 47.95137 W\"]],\n" +
+                "      PRIMEM[\"Reference Meridian\", 0,\n" +
+                "        ANGLEUNIT[\"degree\", 0.0174532925199433, ID[\"EPSG\", 9122]]],\n" +
+                "    ID[\"IAU\", 49902, 2015]],\n" +
+                "  CONVERSION[\"Equirectangular, clon = 0\",\n" +
+                "    METHOD[\"Equidistant Cylindrical\", ID[\"EPSG\", 1028]]],\n" +
+                "  CS[Cartesian, 2],\n" +
+                "    AXIS[\"Easting (E)\", east,\n" +
+                "      LENGTHUNIT[\"metre\", 1]],\n" +
+                "    AXIS[\"Northing (N)\", north,\n" +
+                "      LENGTHUNIT[\"metre\", 1]],\n" +
+                "  ID[\"IAU\", 49912, 2015]]";
+        testTransform(factory, mars1, mars2, new double[]{40, 120}, true, cartTolerance, geogTolerance);
 
         //test PassThroughTransform : Not working yet
         CoordinateReferenceSystem crs1 = CRS.compound(CRS.forCode("CRS:84"));

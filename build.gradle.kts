@@ -31,7 +31,7 @@ dependencies {
     compileOnly("org.jspecify:jspecify:1.0.0")
 
     // Referencing engine
-    implementation("org.apache.sis.core:sis-referencing:1.5.0-ALPHA-1")
+    implementation(libs.apache.sis.referencing)
     implementation("org.apache.sis.non-free:sis-embedded-data:1.3")
     implementation("org.apache.sis.non-free:sis-epsg:1.3")
     implementation("org.apache.derby:derby")
@@ -41,7 +41,7 @@ dependencies {
     // For client
     testFixturesImplementation(platform(libs.geomatys.backend.bom))
     testFixturesImplementation("org.springframework:spring-core")
-    testFixturesApi("org.apache.sis.core:sis-referencing:1.5.0-ALPHA-1")
+    testFixturesApi(libs.apache.sis.referencing)
     testFixturesImplementation("org.graalvm.js:js:24.1.1")
     testFixturesImplementation("org.graalvm.js:js-scriptengine:24.1.1")
     testFixturesImplementation("org.python:jython-slim:2.7.4")

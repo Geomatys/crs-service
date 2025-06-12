@@ -478,6 +478,8 @@ public class DefaultCrsOperationService implements CrsOperationService {
         pythonCode = pythonCode.replaceAll("β", "beta");
         //replace ρ
         pythonCode = pythonCode.replaceAll("ρ", "rho");
+        //replace Ω
+        pythonCode = pythonCode.replaceAll("Ω", "omega");
 
         {//replace NaN
             final Pattern objPattern = Pattern.compile("(Number.math.NaN|Number.NaN|NaN)");
