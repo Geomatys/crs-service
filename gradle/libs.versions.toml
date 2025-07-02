@@ -1,8 +1,15 @@
 [versions]
-geomatys-backend = "2024.5"
+geomatys-backend = "2025.1"
+springdoc = "2.8.9"
+therapi = "0.15.0"
+apache-sis = "1.5.0-ALPHA-2"
 
 [libraries]
+apache-sis-referencing = { module = "org.apache.sis.core:sis-referencing", version.ref = "apache-sis" }
 geomatys-backend-bom = { module = "com.geomatys.backend:downstream-bom", version.ref = "geomatys-backend" }
+springdoc-starter = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+therapi-runtime = { module = "com.github.therapi:therapi-runtime-javadoc", version.ref = "therapi" }
+therapi-processor = { module = "com.github.therapi:therapi-runtime-javadoc-scribe", version.ref = "therapi" }
 
 [plugins]
 geomatys-boot-convention = { id = "com.geomatys.spring-boot-convention", version.ref = "geomatys-backend" }

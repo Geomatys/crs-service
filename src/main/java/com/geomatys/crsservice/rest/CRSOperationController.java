@@ -24,6 +24,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.OffsetDateTime;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +54,7 @@ public class CRSOperationController {
     @CrossOrigin
     @RequestMapping(path = "define", method = RequestMethod.GET)
     @Parameter(name = "source", example = "EPSG:3395")
-    @Parameter(name = "format", schema = @Schema(type = "string", allowableValues = {"application/json"}))
+    @Parameter(name = "format", schema = @Schema(type = "string", allowableValues = {"application/json", "application/wkt"}))
     public ResponseEntity<Resource> getCRS(
                                  @RequestParam String source,
                                  @RequestParam(required = false, defaultValue = "false") boolean longitudeFirst,
@@ -107,7 +108,7 @@ public class CRSOperationController {
      * Parameters should be passed in json.
      */
     @CrossOrigin
-    @RequestMapping(path = "operation", method = RequestMethod.POST)
+    @RequestMapping(path = "operation", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_YAML_VALUE })
     public ResponseEntity<Resource> getOperation(@RequestBody CrsOperationService.OperationParameters parameters) {
         var result = service.getOperation(parameters);
         return ResponseEntity.ok()
